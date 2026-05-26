@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2026 K Vishnu
- * SPDX-License-Identifier: Apache-2.0
- */
-
 `default_nettype none
 
 module tt_um_example (
@@ -19,10 +14,9 @@ module tt_um_example (
     reg [7:0] shift_reg;
     wire feedback;
 
-    // LFSR feedback (max-length style polynomial)
+    // LFSR feedback
     assign feedback = shift_reg[7] ^ shift_reg[5] ^ shift_reg[4] ^ shift_reg[3];
 
-    // Sequential logic
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n)
             shift_reg <= 8'h01;
@@ -30,15 +24,18 @@ module tt_um_example (
             shift_reg <= {shift_reg[6:0], feedback};
     end
 
-    // Output LFSR value
     assign uo_out = shift_reg;
 
-    // Disable bidirectional IOs
+    // HARD FIX: tie all unused inputs safely (important for OpenROAD)
     assign uio_out = 8'b0;
     assign uio_oe  = 8'b0;
 
-    // Proper unused signal handling
-    wire _unused_ok = &{ui_in, uio_in};
+    // IMPORTANT: fully consume inputs to avoid floating nets
+    wire [7:0] ui_sink  = ui_in;
+    wire [7:0] uio_sink = uio_in;
+    wire       ena_sink = ena;
+    wire       clk_sink = clk;
+    wire       rst_sink = rst_n;
 
 endmodule
 
