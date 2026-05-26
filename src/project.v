@@ -12,16 +12,23 @@ module tt_um_example (
 );
 
     reg [7:0] lfsr;
+    reg [7:0] input_reg;
     wire feedback;
 
-    // clean LFSR feedback
+    // CAPTURE INPUTS INTO REGISTER (important for placement stability)
+    always @(posedge clk) begin
+        if (ena)
+            input_reg <= ui_in ^ uio_in;
+    end
+
+    // CLEAN LFSR
     assign feedback = lfsr[7] ^ lfsr[5] ^ lfsr[4] ^ lfsr[3];
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n)
-            lfsr <= 8'h01;
+            lfsr <= 8'h1;
         else if (ena)
-            lfsr <= {lfsr[6:0], feedback};
+            lfsr <= {lfsr[6:0], feedback} ^ input_reg;
     end
 
     assign uo_out = lfsr;
