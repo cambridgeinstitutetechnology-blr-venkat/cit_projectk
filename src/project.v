@@ -26,16 +26,12 @@ module tt_um_example (
 
     assign uo_out = shift_reg;
 
-    // HARD FIX: tie all unused inputs safely (important for OpenROAD)
+    // disable IO safely
     assign uio_out = 8'b0;
     assign uio_oe  = 8'b0;
 
-    // IMPORTANT: fully consume inputs to avoid floating nets
-    wire [7:0] ui_sink  = ui_in;
-    wire [7:0] uio_sink = uio_in;
-    wire       ena_sink = ena;
-    wire       clk_sink = clk;
-    wire       rst_sink = rst_n;
+    // IMPORTANT FIX: actually USE inputs
+    wire _use_inputs = |{ui_in, uio_in, ena, clk, rst_n};
 
 endmodule
 
