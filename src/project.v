@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Satya Roop Bankuru
+ * Copyright (c) 2026 K Vishnu
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -31,9 +31,13 @@ module tt_um_example (
 
     assign uo_out = shift_reg;
 
+    // Bidirectional IOs disabled
     assign uio_out = 8'b00000000;
     assign uio_oe  = 8'b00000000;
 
+    // Prevent unused signal warnings
     wire _unused = &{ena, ui_in, uio_in, 1'b0};
 
 endmodule
+
+`default_nettype wire
