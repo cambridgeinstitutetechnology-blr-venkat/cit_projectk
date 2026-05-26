@@ -1,12 +1,18 @@
-# 8-Bit LFSR Pseudo-Random Circuit
+module lfsr_8bit (
+    input clk,
+    input rst_n,
+    output reg [7:0] uo_out
+);
 
-Designed for digital VLSI training module parameters.
+wire feedback;
 
-## Core Topology
-This design generates pseudo-random sequences using an active feedback polynomial shift mechanism:
-$$x^8 + x^6 + x^5 + x^4 + 1$$
+assign feedback = uo_out[7] ^ uo_out[5] ^ uo_out[4] ^ uo_out[3];
 
-## Validation Guide
-1. Hold `rst_n` low to inject the `0x01` processing seed.
-2. Assert `rst_n` high to begin random cycling.
-3. Observe the generated unique sequences change across the 8-bit `uo_out` pins on each clock cycle edge.
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n)
+        uo_out <= 8'b00000001;
+    else
+        uo_out <= {uo_out[6:0], feedback};
+end
+
+endmodule
