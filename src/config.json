@@ -8,9 +8,7 @@
   "CLOCK_NETS": "clk",
   "PL_TARGET_DENSITY_PCT": 20,
   "FP_SIZING": "absolute",
-  "RT_MAX_LAYER": "met4",
+  "RT_MAX_LAYER": "met3",
   "RUN_KLAYOUT": 0,
-  "SYNTH_STRATEGY": "DELAY 0",
-  "FP_IO_HLAYER": "met3",
-  "FP_IO_VLAYER": "met2"
+  "SYNTH_STRATEGY": "DELAY 0"
 }
