@@ -12,33 +12,18 @@ module tt_um_example (
 );
 
     reg [7:0] lfsr;
-    reg [7:0] mix;
-    reg [7:0] temp;
 
-    wire feedback;
+    wire feedback = lfsr[7] ^ lfsr[5] ^ lfsr[4] ^ lfsr[3];
 
-    // force input usage (improves synthesis stability)
-    always @(posedge clk) begin
-        if (ena) begin
-            mix  <= ui_in ^ uio_in;
-            temp <= mix ^ {lfsr[6:0], lfsr[7]};
-        end
-    end
-
-    // LFSR feedback
-    assign feedback = lfsr[7] ^ lfsr[5] ^ lfsr[4] ^ lfsr[3];
-
-    // main sequential logic
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n)
-            lfsr <= 8'hA5;
+            lfsr <= 8'h01;
         else if (ena)
-            lfsr <= temp ^ {lfsr[6:0], feedback};
+            lfsr <= {lfsr[6:0], feedback};
     end
 
-    assign uo_out = lfsr ^ mix;
-
-    assign uio_out = mix;
+    assign uo_out  = lfsr;
+    assign uio_out = 8'b0;
     assign uio_oe  = 8'b0;
 
 endmodule
