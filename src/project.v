@@ -17,26 +17,28 @@ module tt_um_example (
 );
 
     reg [7:0] shift_reg;
-
     wire feedback;
 
+    // LFSR feedback (max-length style polynomial)
     assign feedback = shift_reg[7] ^ shift_reg[5] ^ shift_reg[4] ^ shift_reg[3];
 
+    // Sequential logic
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n)
             shift_reg <= 8'h01;
-        else
+        else if (ena)
             shift_reg <= {shift_reg[6:0], feedback};
     end
 
+    // Output LFSR value
     assign uo_out = shift_reg;
 
-    // Bidirectional IOs disabled
-    assign uio_out = 8'b00000000;
-    assign uio_oe  = 8'b00000000;
+    // Disable bidirectional IOs
+    assign uio_out = 8'b0;
+    assign uio_oe  = 8'b0;
 
-    // Prevent unused signal warnings
-    wire _unused = &{ena, ui_in, uio_in, 1'b0};
+    // Proper unused signal handling
+    wire _unused_ok = &{ui_in, uio_in};
 
 endmodule
 
