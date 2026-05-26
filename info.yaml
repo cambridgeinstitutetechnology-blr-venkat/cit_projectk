@@ -1,7 +1,5 @@
 title: "8-Bit LFSR Pseudo Random Generator"
 
-author: "Satya Roop Bankuru"
-
 description: "An 8-bit Linear Feedback Shift Register implemented in Verilog for pseudo-random sequence generation and hardware security applications."
 
 language: "Verilog"
