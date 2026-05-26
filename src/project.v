@@ -12,25 +12,23 @@ module tt_um_example (
 );
 
     reg [7:0] lfsr;
-    wire [7:0] mix;
+    wire feedback;
 
-    // FORCE strong connectivity (important for OpenROAD density)
-    assign mix = ui_in ^ uio_in ^ {8{ena}} ^ {8{clk}} ^ {8{rst_n}};
-
-    wire feedback = lfsr[7] ^ lfsr[5] ^ lfsr[4] ^ lfsr[3] ^ mix[2];
+    // SIMPLE stable polynomial (important for mapping)
+    assign feedback = lfsr[7] ^ lfsr[5] ^ lfsr[4] ^ lfsr[3];
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n)
-            lfsr <= 8'hA5 ^ mix;
+            lfsr <= 8'h1;
         else if (ena)
-            lfsr <= {lfsr[6:0], feedback} ^ mix;
+            lfsr <= {lfsr[6:0], feedback};
     end
 
-    // OUTPUT must be strongly driven & mixed
-    assign uo_out = lfsr ^ mix;
+    assign uo_out = lfsr;
 
-    assign uio_out = lfsr | mix;
-    assign uio_oe  = 8'h00;
+    // SAFE IO handling (no complex mixing)
+    assign uio_out = 8'b0;
+    assign uio_oe  = 8'b0;
 
 endmodule
 
