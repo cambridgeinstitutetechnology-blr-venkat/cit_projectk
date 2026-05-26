@@ -5,8 +5,7 @@
   ],
   "CLOCK_PORT": "clk",
   "CLOCK_PERIOD": 25,
-  "FP_SIZING": "absolute",
-  "DIE_AREA": "0 0 161.00 111.52",
+  "FP_SIZING": "relative",
   "PL_TARGET_DENSITY_PCT": 55,
   "RT_MAX_LAYER": "met3"
 }
