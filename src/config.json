@@ -1,5 +1,5 @@
 {
-  "DESIGN_NAME": "project",
+  "DESIGN_NAME": "tt_um_example",
   "VERILOG_FILES": [
     "dir::project.v"
   ],
@@ -14,5 +14,3 @@
   "FP_IO_HLAYER": "met3",
   "FP_IO_VLAYER": "met2"
 }
-
-
