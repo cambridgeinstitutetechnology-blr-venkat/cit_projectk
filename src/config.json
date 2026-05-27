@@ -1,5 +1,6 @@
 {
   "DESIGN_NAME": "tt_um_example",
+
   "VERILOG_FILES": [
     "dir::project.v"
   ],
@@ -9,7 +10,8 @@
 
   "FP_SIZING": "relative",
   "PL_TARGET_DENSITY_PCT": 55,
+
   "RT_MAX_LAYER": "met3",
 
-  "IO_PIN_ORDER_CFG": "dir::src/pin_order.cfg"
+  "IO_PIN_ORDER_CFG": "dir::pin_order.cfg"
 }
