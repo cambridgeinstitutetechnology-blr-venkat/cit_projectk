@@ -1,7 +1,7 @@
 {
   "DESIGN_NAME": "tt_um_example",
   "VERILOG_FILES": [
-    "dir::project.v"
+    "dir::src/project.v"
   ],
   "CLOCK_PORT": "clk",
   "CLOCK_PERIOD": 25,
