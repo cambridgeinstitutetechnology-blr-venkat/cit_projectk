@@ -1,48 +1,39 @@
-clk
-rst_n
-ena
+`default_nettype none
 
-ui_in[0]
-ui_in[1]
-ui_in[2]
-ui_in[3]
-ui_in[4]
-ui_in[5]
-ui_in[6]
-ui_in[7]
+module tt_um_example (
+    input  wire [7:0] ui_in,
+    output wire [7:0] uo_out,
+    input  wire [7:0] uio_in,
+    output wire [7:0] uio_out,
+    output wire [7:0] uio_oe,
+    input  wire       ena,
+    input  wire       clk,
+    input  wire       rst_n
+);
 
-uo_out[0]
-uo_out[1]
-uo_out[2]
-uo_out[3]
-uo_out[4]
-uo_out[5]
-uo_out[6]
-uo_out[7]
+    reg [7:0] lfsr;
+    reg [7:0] mix;
 
-uio_in[0]
-uio_in[1]
-uio_in[2]
-uio_in[3]
-uio_in[4]
-uio_in[5]
-uio_in[6]
-uio_in[7]
+    wire feedback;
 
-uio_out[0]
-uio_out[1]
-uio_out[2]
-uio_out[3]
-uio_out[4]
-uio_out[5]
-uio_out[6]
-uio_out[7]
+    assign feedback = lfsr[7] ^ lfsr[5] ^ lfsr[4] ^ lfsr[3];
 
-uio_oe[0]
-uio_oe[1]
-uio_oe[2]
-uio_oe[3]
-uio_oe[4]
-uio_oe[5]
-uio_oe[6]
-uio_oe[7]
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            lfsr <= 8'hA5;
+        else if (ena)
+            lfsr <= {lfsr[6:0], feedback} ^ ui_in ^ uio_in;
+    end
+
+    always @(posedge clk) begin
+        if (ena)
+            mix <= ui_in ^ uio_in;
+    end
+
+    assign uo_out  = lfsr ^ mix;
+    assign uio_out = mix;
+    assign uio_oe  = 8'b0;
+
+endmodule
+
+`default_nettype wire
