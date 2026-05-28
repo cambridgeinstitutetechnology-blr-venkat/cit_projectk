@@ -14,12 +14,24 @@ module tt_um_example (
     reg [7:0] lfsr;
     wire feedback;
 
-    // Use all inputs so no floating nets remain
-    wire [7:0] dummy;
-    assign dummy = ui_in ^ uio_in;
+    // Use ALL input bits
+    wire [7:0] mixed_inputs;
+    assign mixed_inputs = ui_in ^ uio_in;
 
-    // LFSR polynomial
-    assign feedback = lfsr[7] ^ lfsr[5] ^ lfsr[4] ^ lfsr[3] ^ dummy[0];
+    // LFSR feedback
+    assign feedback =
+        lfsr[7] ^
+        lfsr[5] ^
+        lfsr[4] ^
+        lfsr[3] ^
+        mixed_inputs[0] ^
+        mixed_inputs[1] ^
+        mixed_inputs[2] ^
+        mixed_inputs[3] ^
+        mixed_inputs[4] ^
+        mixed_inputs[5] ^
+        mixed_inputs[6] ^
+        mixed_inputs[7];
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n)
