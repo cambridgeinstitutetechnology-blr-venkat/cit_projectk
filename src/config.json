@@ -4,6 +4,5 @@
     "dir::project.v"
   ],
   "CLOCK_PORT": "clk",
-  "CLOCK_PERIOD": 20,
-  "PL_TARGET_DENSITY_PCT": 45
+  "CLOCK_PERIOD": 20
 }
