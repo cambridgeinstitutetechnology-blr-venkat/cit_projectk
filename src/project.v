@@ -15,8 +15,8 @@ module tt_um_sandy_venky (
     wire feedback;
     wire [7:0] mix;
 
-    // use inputs
-    assign mix = ui_in ^ uio_in;
+    // use only ui_in
+    assign mix = ui_in;
 
     // x^8 + x^6 + x^5 + x^4 + 1
     assign feedback =
@@ -34,8 +34,8 @@ module tt_um_sandy_venky (
     end
 
     assign uo_out  = lfsr ^ mix;
-    assign uio_out = 8'b0;
-    assign uio_oe  = 8'b0;
+    assign uio_out = 8'b00000000;
+    assign uio_oe  = 8'b00000000;
 
 endmodule
 
