@@ -14,6 +14,12 @@ module tt_um_example (
     reg [7:0] lfsr;
     wire feedback;
 
+    // Prevent floating / unused nets
+    wire _unused;
+    assign _unused = &{1'b0, ui_in, uio_in};
+
+    // LFSR polynomial:
+    // x^8 + x^6 + x^5 + x^4 + 1
     assign feedback = lfsr[7] ^ lfsr[5] ^ lfsr[4] ^ lfsr[3];
 
     always @(posedge clk or negedge rst_n) begin
@@ -25,12 +31,9 @@ module tt_um_example (
 
     assign uo_out = lfsr;
 
-    // Explicitly disable unused IO
+    // Disable bidirectional pins
     assign uio_out = 8'b0;
     assign uio_oe  = 8'b0;
-
-    // Mark uio_in as used
-    wire _unused = &{1'b0, uio_in};
 
 endmodule
 
