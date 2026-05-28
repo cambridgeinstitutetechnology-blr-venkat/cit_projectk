@@ -1,6 +1,6 @@
 `default_nettype none
 
-module tt_um_example (
+module tt_um_sandy_venky (
     input  wire [7:0] ui_in,
     output wire [7:0] uo_out,
     input  wire [7:0] uio_in,
@@ -15,8 +15,10 @@ module tt_um_example (
     wire feedback;
     wire [7:0] mix;
 
+    // use inputs
     assign mix = ui_in ^ uio_in;
 
+    // x^8 + x^6 + x^5 + x^4 + 1
     assign feedback =
         lfsr[7] ^
         lfsr[5] ^
