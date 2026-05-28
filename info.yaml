@@ -1,41 +1,41 @@
-yaml_version: 6
-
 project:
-  title: "8-Bit LFSR Pseudo Random Generator"
-  author: "K Vishnu"
-  description: "An 8-bit Linear Feedback Shift Register implemented in Verilog for pseudo-random sequence generation and hardware security applications."
+  title: "8-bit Barrel Shifter"
+  description: "8-bit barrel shifter supporting left, right and rotate operations."
+  author: "venkatesh"
   language: "Verilog"
   clock_hz: 50000000
-top_module: tt_um_sandy_venky
   tiles: "1x1"
-
+  analog_pins: 0
+  top_module: tt_um_sandy_venky
   source_files:
     - "project.v"
 
+yaml_version: 6
+
 pinout:
-  ui[0]: "Unused"
-  ui[1]: "Unused"
-  ui[2]: "Unused"
-  ui[3]: "Unused"
-  ui[4]: "Unused"
-  ui[5]: "Unused"
-  ui[6]: "Unused"
-  ui[7]: "Unused"
+  ui[0]: "Input bit0"
+  ui[1]: "Input bit1"
+  ui[2]: "Input bit2"
+  ui[3]: "Input bit3"
+  ui[4]: "Input bit4"
+  ui[5]: "Input bit5"
+  ui[6]: "Input bit6"
+  ui[7]: "Input bit7"
 
-  uo[0]: "LFSR Bit 0"
-  uo[1]: "LFSR Bit 1"
-  uo[2]: "LFSR Bit 2"
-  uo[3]: "LFSR Bit 3"
-  uo[4]: "LFSR Bit 4"
-  uo[5]: "LFSR Bit 5"
-  uo[6]: "LFSR Bit 6"
-  uo[7]: "LFSR Bit 7"
+  uo[0]: "Output bit0"
+  uo[1]: "Output bit1"
+  uo[2]: "Output bit2"
+  uo[3]: "Output bit3"
+  uo[4]: "Output bit4"
+  uo[5]: "Output bit5"
+  uo[6]: "Output bit6"
+  uo[7]: "Output bit7"
 
-  uio[0]: "Unused"
-  uio[1]: "Unused"
-  uio[2]: "Unused"
-  uio[3]: "Unused"
-  uio[4]: "Unused"
-  uio[5]: "Unused"
-  uio[6]: "Unused"
-  uio[7]: "Unused"
+  uio[0]: "Mode bit0"
+  uio[1]: "Mode bit1"
+  uio[2]: "unused"
+  uio[3]: "unused"
+  uio[4]: "unused"
+  uio[5]: "unused"
+  uio[6]: "unused"
+  uio[7]: "unused"
