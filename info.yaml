@@ -1,6 +1,6 @@
 project:
   title: "8-bit LFSR Generator"
-  description: "8-bit LFSR with mixed ui and uio inputs."
+  description: "8-bit LFSR using ui inputs."
   author: "venkatesh"
   language: "Verilog"
   clock_hz: 50000000
@@ -31,11 +31,11 @@ pinout:
   uo[6]: "Output6"
   uo[7]: "Output7"
 
-  uio[0]: "Extra input0"
-  uio[1]: "Extra input1"
-  uio[2]: "Extra input2"
-  uio[3]: "Extra input3"
-  uio[4]: "Extra input4"
-  uio[5]: "Extra input5"
-  uio[6]: "Extra input6"
-  uio[7]: "Extra input7"
+  uio[0]: "unused"
+  uio[1]: "unused"
+  uio[2]: "unused"
+  uio[3]: "unused"
+  uio[4]: "unused"
+  uio[5]: "unused"
+  uio[6]: "unused"
+  uio[7]: "unused"
