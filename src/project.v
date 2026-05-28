@@ -13,18 +13,13 @@ module tt_um_sandy_venky (
 
     reg [7:0] lfsr;
     wire feedback;
-    wire [7:0] mix;
 
-    // use only ui_in
-    assign mix = ui_in;
-
-    // x^8 + x^6 + x^5 + x^4 + 1
     assign feedback =
         lfsr[7] ^
         lfsr[5] ^
         lfsr[4] ^
         lfsr[3] ^
-        mix[0];
+        ui_in[0];
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n)
@@ -33,9 +28,11 @@ module tt_um_sandy_venky (
             lfsr <= {lfsr[6:0], feedback};
     end
 
-    assign uo_out  = lfsr ^ mix;
-    assign uio_out = 8'b00000000;
-    assign uio_oe  = 8'b00000000;
+    assign uo_out  = lfsr ^ ui_in;
+
+    // disable all bidirectional pins
+    assign uio_out = 8'b0;
+    assign uio_oe  = 8'b0;
 
 endmodule
 
