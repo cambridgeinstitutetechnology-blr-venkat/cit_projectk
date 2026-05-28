@@ -14,6 +14,10 @@ module tt_um_sandy_venky (
     reg [7:0] lfsr;
     wire feedback;
 
+    // prevent unused warning
+    wire _unused = &{ena, uio_in, 1'b0};
+
+    // x^8 + x^6 + x^5 + x^4 + 1
     assign feedback =
         lfsr[7] ^
         lfsr[5] ^
@@ -29,8 +33,6 @@ module tt_um_sandy_venky (
     end
 
     assign uo_out  = lfsr ^ ui_in;
-
-    // disable all bidirectional pins
     assign uio_out = 8'b0;
     assign uio_oe  = 8'b0;
 
