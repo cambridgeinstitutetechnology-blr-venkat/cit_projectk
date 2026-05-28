@@ -2,7 +2,5 @@
   "DESIGN_NAME": "tt_um_sandy_venky",
   "VERILOG_FILES": [
     "dir::project.v"
-  ],
-  "CLOCK_PORT": "clk",
-  "CLOCK_PERIOD": 20
+  ]
 }
