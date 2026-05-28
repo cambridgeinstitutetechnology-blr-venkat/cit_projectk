@@ -14,17 +14,11 @@ module tt_um_example (
     reg [7:0] lfsr;
     wire feedback;
 
-    // Use ALL inputs
-    wire [7:0] mix;
-    assign mix = ui_in ^ uio_in;
-
-    // LFSR feedback
     assign feedback =
         lfsr[7] ^
         lfsr[5] ^
         lfsr[4] ^
-        lfsr[3] ^
-        mix[0];
+        lfsr[3];
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n)
@@ -33,12 +27,9 @@ module tt_um_example (
             lfsr <= {lfsr[6:0], feedback};
     end
 
-    // Use mix so nothing floats
-    assign uo_out  = lfsr ^ mix;
-
-    // Explicitly drive outputs
-    assign uio_out = mix;
-    assign uio_oe  = 8'hFF;
+    assign uo_out  = lfsr;
+    assign uio_out = 8'b0;
+    assign uio_oe  = 8'b0;
 
 endmodule
 
